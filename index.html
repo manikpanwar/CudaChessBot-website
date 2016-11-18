@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cudachessbot-website by manikpanwar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Cudachessbot-website</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/manikpanwar/CudaChessBot-website" class="btn">View on GitHub</a>
+      <a href="https://github.com/manikpanwar/CudaChessBot-website/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/manikpanwar/CudaChessBot-website/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="cudachessbot" class="anchor" href="#cudachessbot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CudaChessBot</h1>
+
+<p>Kevin Lee and Manik Panwar</p>
+
+<p>Summary</p>
+
+<p>We are going to implement a parallelized chess AI using CUDA. The goal of the project will be
+to create an AI that can compete as well as possible in timed chess matches.</p>
+
+<p>Background</p>
+
+<p>Currently, the accepted best algorithm to write a chess AI is minimax augmented with
+alpha-beta pruning. This algorithm creates a tree of possible moves, and alpha-beta pruning is
+simply used to ensure that no time is wasted in exploring worse moves than have already been
+seen.</p>
+
+<p>However, the tree of possible moves from a given state in chess is way too large for a computer
+to completely examine, so we will have to stop the algorithm at some point and judge the state
+using various heuristics. We will take advantage of parallelism when we traverse the game tree
+in order to reduce the amount of time spent calculating each move since we want to be able to
+use our chess AI to compete in timed matches.</p>
+
+<p>Challenge</p>
+
+<p>The main challenge in this assignment will be parallelizing the minimax augmented with
+alpha-beta pruning algorithm. We have already used this algorithm in 15-210, but we used it in a
+sequential manner because alpha-beta pruning is an inherently sequential algorithm. As such,
+we will have to make some sacrifices when we implement it in parallel.
+In order for alpha-beta pruning to still work, we have to ensure that the communication costs are
+kept at a minimum so that each CUDA thread can have the current progress in the traversal of
+the game tree without bogging down our computation time with communication costs. Since the
+work of each thread is dependant on the work of all the other threads, minimizing
+communication will probably be the main issue we face.</p>
+
+<p>Resources</p>
+
+<p>We will be using the GHC machines running CUDA and running our code on the NVIDIA GTX
+1080 GPUs.</p>
+
+<p>Platform Choice</p>
+
+<p>We are using GPU’s because we would like to be able to simulate each of our possible moves
+in chess at any state on different cores each running parallely. Each of these possible moves
+will in turn spawn off new searches on separate cores trying to predict what the opponent does
+so having lot’s of cores helps us. We are also curious how memory performance will be when
+running this on a GPU and what sort of tradeoffs we will have to see. The project will be done in
+C++.</p>
+
+<p>Goals and Deliverables</p>
+
+<ol>
+<li>Minimax augmented alpha beta pruning AI running parallely on NVIDIA GTX 1080</li>
+<li>Results of performance of AI (win ratio) as compared to number of
+processors/communication frequency between threads.</li>
+<li>Analysis on memory throughput of the program and cache misses of the program and
+how it affects performance.</li>
+<li>Suggested improvements on the minimax augmented alpha beta pruning algorithm
+specifically for this architecture and problem along with the tradeoffs between all the
+iterations that were tried.</li>
+</ol>
+
+<p>Schedule:</p>
+
+<ol>
+<li>Week 1: Come up with outline of the solution and an initial approach to parallelism</li>
+<li>Week 2: Have the sequential implementation working</li>
+<li>Week 3: Parallelise sequential implementation to come up with parallel implementation
+v1.
+Midpoint</li>
+<li>Week 4: Do profiling tests on the implementation to come up with potential areas of
+improvement. Iterate.</li>
+<li>Week 5: Iterate on implementation to better performance. Stretch Goal: Implement the
+solution on CPU and see how the performance is affected as compared to GPU w/
+CUDA.</li>
+<li>Week 6: Prepare final project writeup and presentation.</li>
+</ol>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/manikpanwar/CudaChessBot-website">Cudachessbot-website</a> is maintained by <a href="https://github.com/manikpanwar">manikpanwar</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
